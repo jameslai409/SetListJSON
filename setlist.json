@@ -1,0 +1,65 @@
+{
+    "setList":
+    [
+        {
+            "artist" : "DJ Okawari",
+            "title" : "Flower Dance",
+            "genre" : ["Instrumental"],
+            "year" : 2010
+        },
+        {
+            "artist" : "Juice WLRD",
+            "title" : "Lucid Dreams",
+            "genre" : ["Rap"],
+            "year" : 2018
+        },
+        {
+            "artist" : "Charlie Puth",
+            "title" : "We Don't Talk Anymore",
+            "genre" : ["Pop"],
+            "year" : 2016
+        },
+        {
+            "artist" : "Maroon 5",
+            "title" : "Girls Like You",
+            "genre" : ["Pop"],
+            "year" : 2018
+        },
+        {
+            "artist" : "T.I.",
+            "title" : "Dead and Gone",
+            "genre" : ["Hip-hop", "Rap"],
+            "year" : 2008
+        },
+        {
+            "artist" : "Starset",
+            "title" : "My Demons",
+            "genre" : ["Rock"],
+            "year" : 2014
+        },
+        {
+            "artist" : "Starset",
+            "title" : "Antigravity",
+            "genre" : ["Rock"],
+            "year" : 2014
+        },
+        {
+            "artist" : "Fall Out Boy",
+            "title" : "Centuries",
+            "genre" : ["Indie"],
+            "year" : 2015
+        },
+        {
+            "artist" : "Panda Eyes and Teminite",
+            "title" : "Highscore",
+            "genre" : ["Electronic"],
+            "year" : 2015
+        },
+        {
+            "artist" : "Imagine Dragons",
+            "title" : "Warriors",
+            "genre" : ["Indie"],
+            "year" : 2014
+        }
+    ]
+}
