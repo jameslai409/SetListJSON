@@ -9,39 +9,110 @@
             function loadJSON() {
                 request = new XMLHttpRequest();
 
-                request.open("GET", "https://jameslai409.github.io/SetListJSON/", true);
+                request.open("GET", "https://jameslai409.github.io/SetListJSON/setlist.json", true);
 
                 request.onreadystatechange = function() {
                     if (request.readyState == 4 && request.status == 200) {
-                        let response = request.response;
-                        let data = JSON.parse(response);
-                        alert(response);
+                        var response = request.responseText;
+
+                        //put raw reponse on page
+                        document.getElementById("raw").innerHTML = response;
+                        
+                        //convert raw response to json object "data"
+                        var data = JSON.parse(response);
+
+                        //put data in a user friendly format on the page
+                        loadJSONtable(data, "userfriendly");
+                        loadJSONtable(data, "filtertable");
+
+                        //add filter event listener
+                        var form = document.getElementById("filterform");
+                        form.addEventListener("submit", function() {
+
+                            //find selected option
+                            var e = document.getElementById("genre");
+                            var genre = e.options[e.selectedIndex].text;
+                            
+                            //make a new JSON Object
+                            var filteredData = {"setList":[]};
+
+                            //find matching genres and carry them over to new objext
+                            data["setList"].forEach(function (element, index) {
+                                if (element["genre"][0] == genre) {
+                                    filteredData["setList"].push(element);
+                                }
+                            })
+                            //print filtered JSON Object onto new table
+                            loadJSONtable(filteredData, "filtertable");
+                        });
                     }
                     else if (request.readyState == 4 && request.status != 200) {
-                        document.getElementById("part2").innerHTML = "A mistake happened somewhere. Check console logs please.";
+                        document.getElementById("raw").innerHTML = "A mistake happened somewhere. Check console logs please.";
                     }
                     else if (request.readyState == 3) {
-                        document.getElementById("part2").innerHTML = "Too soon! Try again";
+                        document.getElementById("raw").innerHTML = "Too soon! Try again";
                     }
                 }
 
                 request.send();
+            }
+
+            function loadJSONtable(data, outputID) {
+                //create table in html
+                var output = "<table border='1px'>";
+                for (let songIndex in data["setList"]) {
+                    output += "<tr>";
+                    output += "<td>" + data["setList"][songIndex]["artist"] + "</td>";
+                    output += "<td><strong>" + data["setList"][songIndex]["title"] + "</strong></td>";
+                    output += "<td>" + data["setList"][songIndex]["genre"] + "</td>";
+                    output += "<td>" + data["setList"][songIndex]["year"] + "</td>";
+                    output += "</tr>";
+                }
+                output += "</table>";
+
+                //put html on the page
+                document.getElementById(outputID).innerHTML = output;;
             }
         </script>
 
     </head>
     <body onload="loadJSON()">
         <h1>HW9: JSON</h1>
-        <h2>Part 2:</h2>
-        <div id="part2">
+        <h2>Raw String:</h2>
+        <div id="raw">
             Loading...
         </div>
 
         <br />
         <br />
-        <h2>Part 3</h2>
-        <div id="part3">
+
+        <h2>User Friendly:</h2>
+        <div id="userfriendly">
             &nbsp;
         </div>
+
+        <br />
+        <br />
+
+        <h2>Filtered Table:</h2>
+        <form id="filterform" onsubmit="return false">
+            <select id="genre" name="genre" form="filterform">
+                <option value="none" selected disabled hidden>Select a Genre</option>
+                <option value="Instrumental">Instrumental</option>
+                <option value="Rap">Rap</option>
+                <option value="Pop">Pop</option>
+                <option value="Hip-hop">Hip-hop</option>
+                <option value="Rock">Rock</option>
+                <option value="Electronic">Electronic</option>
+                <option value="Indie">Indie</option>
+            </select>
+            <button type="submit" form="filterform" value="Filter">Filter</button>
+        </form>
+        <br />
+    
+        <div id="filtertable">
+            &nbsp;
+        </div>
+
     </body>
 </html>
